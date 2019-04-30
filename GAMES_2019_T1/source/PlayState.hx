@@ -15,6 +15,7 @@ class PlayState extends FlxState
 	var _Pontos:Int = 0;
 	var _Nave:Nave;
 	var _Balas:FlxTypedGroup<Balas>;
+	var _Inimigos:FlxTypedGroup<Inimigos>;
 
 
 	override public function create():Void
@@ -47,6 +48,13 @@ class PlayState extends FlxState
 
 		_Nave = new Nave(_FundoDados.getGraphicMidpoint().x - 24, _FundoDados.getGraphicMidpoint().y - _FundoDados.height - 32, _Balas);
 		add(_Nave);
+
+		_Inimigos = new FlxTypedGroup<Inimigos>();
+		add(_Inimigos);
+		for(i in 0...2){
+			var meuNovoInimigo = new Inimigos(FlxG.width/2, 0, "InimigoUm", 0);
+			_Inimigos.add(meuNovoInimigo);
+		}
 
 		super.create();
 	}
