@@ -9,7 +9,7 @@ class Vidas extends FlxSprite
     {
         super(X, Y);
         
-        loadGraphic("assets/images/New Piskel.png");
+        loadGraphic("assets/images/Life.png");
         
     }
 

@@ -13,6 +13,9 @@ class PlayState extends FlxState
 	var _Vidas:FlxTypedGroup<Vidas>;
 	var _Score:FlxText;
 	var _Pontos:Int = 0;
+	var _Nave:Nave;
+	var _Balas:FlxTypedGroup<Balas>;
+
 
 	override public function create():Void
 	{
@@ -27,11 +30,23 @@ class PlayState extends FlxState
 			_Vidas.add(minhaNovaVida);
 		}
 
+		add(_Vidas);
+
 		_Score = new FlxText(_FundoDados.getGraphicMidpoint().x + FlxG.width/4, _FundoDados.getGraphicMidpoint().y - 12, " "+_Pontos, 16);
 		_Score.color = 0xff0000CD;
 		add(_Score);
 
-		add(_Vidas);
+
+		_Balas = new FlxTypedGroup<Balas>(50);
+		add(_Balas);
+		for(i in 0...50){
+			var minhaNovaBala = new Balas();
+			minhaNovaBala.kill();
+			_Balas.add(minhaNovaBala);
+		}
+
+		_Nave = new Nave(_FundoDados.getGraphicMidpoint().x - 24, _FundoDados.getGraphicMidpoint().y - _FundoDados.height - 32, _Balas);
+		add(_Nave);
 
 		super.create();
 	}
