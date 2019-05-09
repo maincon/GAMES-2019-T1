@@ -1,19 +1,19 @@
 -main ApplicationMain 
--cp /home/aluno-uffs/haxelib/flixel/4,6,0
--D flixel=4.6.0
+-cp /home/maicon/haxelib/flixel/4,6,1
+-D flixel=4.6.1
 --macro openfl._internal.macros.ExtraParams.include()
--cp /home/aluno-uffs/haxelib/openfl/8,8,0/src
--D openfl=8.8.0
+-cp /home/maicon/haxelib/openfl/8,9,0/src
+-D openfl=8.9.0
 --macro lime._internal.macros.DefineMacro.run()
--cp /home/aluno-uffs/haxelib/lime/7,2,1/src
--D lime=7.2.1
+-cp /home/maicon/haxelib/lime/7,3,0/src
+-D lime=7.3.0
 --macro keep('IntIterator')
--cp /home/aluno-uffs/haxelib/hscript/2,3,0
+-cp /home/maicon/haxelib/hscript/2,3,0
 -D hscript=2.3.0
 -cp source
 -D lime-harfbuzz
 -D lime-openal
--D tools=7.2.1
+-D tools=7.3.0
 -D lime-cairo
 -D lime-opengl
 -D no-compilation
@@ -29,6 +29,8 @@
 -D desktop
 --remap flash:openfl
 --macro flixel.system.macros.FlxDefines.run()
+--connect
+6000
 -cp export/neko/haxe
 -neko export/neko/obj/ApplicationMain.n
 --macro keep("Main")

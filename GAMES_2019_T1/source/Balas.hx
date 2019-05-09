@@ -8,6 +8,7 @@ class Balas extends FlxSprite {
         loadGraphic("assets/images/BalaNave.png");
     }
 
+
     override public function update(elapsed:Float):Void {
         if(!this.isOnScreen()){
             this.kill();

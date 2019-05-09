@@ -24,6 +24,7 @@ class Nave extends FlxSprite
         
     }
 
+
     override public function update(elapsed:Float):Void
     {
         if(FlxG.keys.pressed.A){
@@ -63,7 +64,7 @@ class Nave extends FlxSprite
         var _Tiro = _Balas.getFirstAvailable();
         if(_Tiro != null){
             _Tiro.reset(getGraphicMidpoint().x - 13, getGraphicMidpoint().y - height - 1);
-            _Tiro.velocity.y = -80;
+            _Tiro.velocity.y = -95;
         }
         _Cartucheira--;
     }
