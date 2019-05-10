@@ -11,6 +11,7 @@ class Inimigos extends FlxSprite {
     var _TimerTiros:FlxTimer;
     var _TiroPorSegundo:Float = 9/10;
     var _BalasInimigos:FlxTypedGroup<BalasInimigos>;
+    var direcao:Int = 1;
 
     public static var SPRITE_FRAMES:Map<Int, Array<Int>> = [
         0 => [0, 1, 2],
@@ -43,24 +44,39 @@ class Inimigos extends FlxSprite {
 
 
     override public function update(elapsed:Float):Void {
-        if(_BalasInimigos.countLiving() > 1){
+        /*if(_BalasInimigos.countLiving() > 1){
             _TimerTiros.start(_TiroPorSegundo);
             
-        }
-        atirar();
+        }*/
+        //atirar();
+
+        movimentacao();
+
+        x += direcao*2;
         
         super.update(elapsed);
     }
 
 
-    function atirar():Void {
-        if(_TimerTiros.active) return;
-        _TimerTiros.start(_TiroPorSegundo);
+    public function atirar():Void {
+        /*if(_TimerTiros.active) return;
+        _TimerTiros.start(_TiroPorSegundo);*/
         var _Tiro = _BalasInimigos.getFirstAvailable();
         if(_Tiro != null){
             _Tiro.reset(getGraphicMidpoint().x - 15, getGraphicMidpoint().y + 1);
             _Tiro.velocity.y = 110;
         }
+
     }
 
+    function movimentacao() {
+        if(x <= 0) {
+            direcao = 1;
+            y += height + 4;
+        }
+        if(x >= FlxG.width){
+            direcao = -1;
+            y += height + 4;
+        }
+    }
 }
