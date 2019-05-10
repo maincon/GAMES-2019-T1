@@ -64,7 +64,7 @@ class Nave extends FlxSprite
         var _Tiro = _Balas.getFirstAvailable();
         if(_Tiro != null){
             _Tiro.reset(getGraphicMidpoint().x - 13, getGraphicMidpoint().y - height - 1);
-            _Tiro.velocity.y = -95;
+            _Tiro.velocity.y = -150;
         }
         _Cartucheira--;
     }

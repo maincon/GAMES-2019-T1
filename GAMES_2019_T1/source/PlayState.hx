@@ -22,6 +22,7 @@ class PlayState extends FlxState
 	var _Inimigos:FlxTypedGroup<Inimigos>;
 	var _Nivel:Int = 0;
 	var _NumeroInimigosNivel:Array<Int> = [13, 8, 11, 14, 17, 20, 23];
+	var _ending:Bool;
 
 
 	override public function create():Void
@@ -38,7 +39,7 @@ class PlayState extends FlxState
 		}
 		add(_Vidas);
 
-		_Score = new FlxText(_FundoDados.getGraphicMidpoint().x + FlxG.width/4, _FundoDados.getGraphicMidpoint().y - 12, " "+_Pontos, 16);
+		_Score = new FlxText(_FundoDados.getGraphicMidpoint().x + FlxG.width/4, _FundoDados.getGraphicMidpoint().y - 12, "PONTOS: 0", 16);
 		_Score.color = 0xff0000CD;
 		add(_Score);
 
@@ -73,6 +74,10 @@ class PlayState extends FlxState
 		super.create();
 	}
 
+	function gameOver(){
+		FlxG.switchState(new GameOverState(_Pontos));
+	}
+
 	function onOverlap(a:FlxObject, b:FlxObject):Void{
 		if(Std.is (a, Balas)){
 			a.kill();
@@ -81,24 +86,41 @@ class PlayState extends FlxState
 		}
 		if( Std.is (a, BalasInimigos)){
 			a.kill();
-			b.kill();
+			if(_Vida <= 1){
+				b.kill();
+				_ending = true;
+				gameOver();
+			}			
 			_Vida -= 1;
+			_Pontos -= 10;
 			
 		}
 		if( Std.is (a, _Inimigos)){
 			a.kill();
-			b.kill();
+			if(_Vida <= 1){
+				b.kill();
+				_ending = true;
+				gameOver();
+			}
 			_Vida -= 1;
+			_Pontos -= 10;
 		}
 	}
 
 	override public function update(elapsed:Float):Void
 	{
-		
+		if (_ending){
+     		return;
+ 		}
+		if(_Vida < _Vidas.countLiving()){
+			_Vidas.getFirstAlive().kill();
+		}
+		_Score.text = "PONTOS: " + _Pontos;		
 		FlxG.overlap(_Balas, _Inimigos, onOverlap);
        	FlxG.overlap(_BalasInimigos, _Nave, onOverlap);
 		FlxG.overlap(_Inimigos, _Nave, onOverlap);
        
 	   super.update(elapsed);
 	}
+
 }

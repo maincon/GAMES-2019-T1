@@ -13,6 +13,9 @@ class BalasInimigos extends FlxSprite {
         if(!this.isOnScreen()){
             this.kill();
         }
+        if(this.y > FlxG.height - 98){
+            this.kill();
+        }
         super.update(elapsed);
     }
 }
