@@ -9,6 +9,7 @@ class MenuState extends FlxState
 {
     var _btnPlay:FlxButton;
     var _btnCredits:FlxButton;
+    var _btnInstructions:FlxButton;
     var _Title:FlxText;
 
 	override public function create():Void
@@ -19,9 +20,11 @@ class MenuState extends FlxState
         _btnPlay = new FlxButton(0, 0, "Play", clickPlay);
         _btnPlay.screenCenter();
         _btnCredits = new FlxButton(_btnPlay.x, _btnPlay.y + _btnPlay.height + 10, "Credits", clickCredits);
+        _btnInstructions = new FlxButton(_btnPlay.x, _btnCredits.y + _btnCredits.height + 10, "Instruções", clickInstructions);
         add(_Title);
         add(_btnPlay);
         add(_btnCredits);
+        add(_btnInstructions);
 		super.create();
 	}
 
@@ -38,5 +41,10 @@ class MenuState extends FlxState
     function clickCredits():Void
     {
         FlxG.switchState(new CreditsState());
+    }
+    
+    function clickInstructions():Void
+    {
+        FlxG.switchState(new InstructionsState());
     }
 }

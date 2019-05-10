@@ -22,8 +22,9 @@ class PlayState extends FlxState
 	var _BalasInimigos:FlxTypedGroup<BalasInimigos>;
 	var _Inimigos:FlxTypedGroup<Inimigos>;
 	var _Nivel:Int = 0;
-	var _NumeroInimigosNivel:Array<Int> = [13, 18, 11, 14, 17, 20, 23];
+	var _NumeroInimigosNivel:Array<Int> = [4, 6, 8, 10, 12, 13, 13];
 	var _ending:Bool;
+	var _win:Bool;
 	var random:FlxRandom = new FlxRandom();
 
 
@@ -73,7 +74,8 @@ class PlayState extends FlxState
 	}
 
 	function gameOver(){
-		FlxG.switchState(new GameOverState(_Pontos));
+		FlxG.log.add("oi");
+		FlxG.switchState(new GameOverState(_Pontos, _win));
 	}
 
 	function onOverlap(a:FlxObject, b:FlxObject):Void{
@@ -103,10 +105,23 @@ class PlayState extends FlxState
 			_Vida -= 1;
 			_Pontos -= 10;
 		}
-		if(_Inimigos.countLiving()==0){
+		if(_Nivel < 6){
+			if(_Inimigos.countLiving()==0){
 			_Nivel++;
 			novoNivel();
+			}
+		}else if(_Nivel == 6){
+			if(_Inimigos.countLiving()==0){
+			_Nivel++;
+			_win = true;
+			_ending = true;
+			novoNivel();
+			}
 		}
+		if(_Nivel > 6){
+			gameOver();
+		}
+		
 	}
 
 	override public function update(elapsed:Float):Void
@@ -126,7 +141,7 @@ class PlayState extends FlxState
 	}
 
 	function inimigosAtirar() {
-		new FlxTimer().start(1, function(Timer:FlxTimer) {
+		new FlxTimer().start(0.5, function(Timer:FlxTimer) {
             var inimigoSorteado = random.int(0, _Inimigos.countLiving() - 1);
 			var aux = 0;
 			_Inimigos.forEachAlive(function(inimigo:Inimigos){
@@ -140,7 +155,7 @@ class PlayState extends FlxState
 		_Inimigos = new FlxTypedGroup<Inimigos>();
 		for(i in 0..._NumeroInimigosNivel[_Nivel]){
 			var meuNovoInimigo = new Inimigos(0, 0, _Nivel, _BalasInimigos);
-			meuNovoInimigo.x = 1 + ((meuNovoInimigo.width+15)*i);
+			meuNovoInimigo.x = 1 + ((meuNovoInimigo.width+25)*i);
 			_Inimigos.add(meuNovoInimigo);
 		}
 		add(_Inimigos);

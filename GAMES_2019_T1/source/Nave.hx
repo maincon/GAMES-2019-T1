@@ -13,7 +13,7 @@ class Nave extends FlxSprite
     var _TimerTiros:FlxTimer;
     var _TiroPorSegundo:Float = 5/10;
     var _Balas:FlxTypedGroup<Balas>;
-    var _Cartucheira:Int = 500;
+    var _Cartucheira:Int = 200;
 
     public function new(?X:Float = 0, ?Y:Float = 0, Bullet:FlxTypedGroup<Balas>)
     {
@@ -64,7 +64,7 @@ class Nave extends FlxSprite
         var _Tiro = _Balas.getFirstAvailable();
         if(_Tiro != null){
             _Tiro.reset(getGraphicMidpoint().x - 13, getGraphicMidpoint().y - height - 1);
-            _Tiro.velocity.y = -150;
+            _Tiro.velocity.y = -250;
         }
         _Cartucheira--;
     }

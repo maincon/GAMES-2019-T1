@@ -44,27 +44,17 @@ class Inimigos extends FlxSprite {
 
 
     override public function update(elapsed:Float):Void {
-        /*if(_BalasInimigos.countLiving() > 1){
-            _TimerTiros.start(_TiroPorSegundo);
-            
-        }*/
-        //atirar();
-
         movimentacao();
-
-        x += direcao*2;
-        
+        x += direcao*2;      
         super.update(elapsed);
     }
 
 
     public function atirar():Void {
-        /*if(_TimerTiros.active) return;
-        _TimerTiros.start(_TiroPorSegundo);*/
         var _Tiro = _BalasInimigos.getFirstAvailable();
         if(_Tiro != null){
             _Tiro.reset(getGraphicMidpoint().x - 15, getGraphicMidpoint().y + 1);
-            _Tiro.velocity.y = 110;
+            _Tiro.velocity.y = 250;
         }
 
     }
@@ -72,10 +62,16 @@ class Inimigos extends FlxSprite {
     function movimentacao() {
         if(x <= 0) {
             direcao = 1;
+            if(y > FlxG.height - 98){
+                y = 0;
+            }
             y += height + 4;
         }
         if(x >= FlxG.width){
             direcao = -1;
+            if(y > FlxG.height - 98){
+                y = 0;
+            }
             y += height + 4;
         }
     }
